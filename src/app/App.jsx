@@ -6,7 +6,7 @@ import { Sidebar } from '@/components/layout/Sidebar';
 import { StreamGrid } from '@/components/streams/StreamGrid';
 
 export default function App() {
-  const [layout, setLayout] = useState('2x2');
+  const [layout, setLayout] = useState('3x3');
   const [streams, setStreams] = useState(initialStreams);
 
   return (

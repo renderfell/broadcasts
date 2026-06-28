@@ -8,7 +8,7 @@ export function StreamGrid({ streams, layout }) {
   const { cols, rows, count } = LAYOUTS[layout] ?? LAYOUTS['3x3'];
 
   const visible = useMemo(
-    () => Array.from({ length: count }, (_, i) => streams[i % streams.length]),
+    () => Array.from({ length: count }, (_, i) => streams[i] ?? null),
     [streams, count]
   );
 
