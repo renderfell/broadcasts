@@ -188,23 +188,24 @@
 
 /* ─── Layout Options ──────────────────────────────────── */
 .layout-options {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
 
 .layout-btn {
-  flex: 1;
-  padding: 10px 8px;
+  padding: 8px 4px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.04);
   color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
   font-family: inherit;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.02em;
   transition: all 0.15s;
+  text-align: center;
 }
 
 .layout-btn:hover {
@@ -282,4 +283,54 @@
   overflow: hidden;
   text-overflow: ellipsis;
   flex: 1;
+}
+
+/* ─── Empty Placeholder Cell ──────────────────────────── */
+.stream-cell-empty {
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.035);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stream-empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  text-align: center;
+}
+
+.stream-empty-icon {
+  font-size: 20px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.1);
+  margin-bottom: 1px;
+}
+
+.stream-empty-main {
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.28);
+  letter-spacing: 0.06em;
+}
+
+.stream-empty-link {
+  font-family: var(--font);
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(210, 80, 80, 0.6);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  margin-top: 3px;
+  transition:
+    color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.stream-empty-link:hover {
+  color: #ff6b6b;
+  text-decoration: underline;
 }
