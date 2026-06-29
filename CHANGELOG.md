@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/renderfell/broadcasts/compare/v1.2.0...v1.2.1) (2026-06-29)
+
+
+### Performance Improvements
+
+* memoize StreamCell, StreamGrid and StreamList with React.memo ([#8](https://github.com/renderfell/broadcasts/issues/8)) ([6241e14](https://github.com/renderfell/broadcasts/commit/6241e1464cb24b5baa5fe46fadcc230bfa980390))
+
 # [1.2.0](https://github.com/renderfell/broadcasts/compare/v1.1.0...v1.2.0) (2026-06-29)
 
 
