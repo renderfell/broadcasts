@@ -2,7 +2,7 @@
  * Semantic Release configuration
  * Uses conventional commits to determine releases.
  * - No npm publish (this is not a library)
- * - Updates package.json + CHANGELOG.md and commits them
+ * - Updates package.json and commits it
  * - Creates GitHub Release + tag
  *
  * GitHub Pages deploy is handled in the workflow ONLY when a release is published.
@@ -13,12 +13,6 @@ export default {
     '@semantic-release/commit-analyzer',
     '@semantic-release/release-notes-generator',
     [
-      '@semantic-release/changelog',
-      {
-        changelogFile: 'CHANGELOG.md',
-      },
-    ],
-    [
       '@semantic-release/npm',
       {
         npmPublish: false,
@@ -27,7 +21,7 @@ export default {
     [
       '@semantic-release/git',
       {
-        assets: ['CHANGELOG.md', 'package.json'],
+        assets: ['package.json'],
         message: 'chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
       },
     ],
