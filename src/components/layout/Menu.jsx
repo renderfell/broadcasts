@@ -14,12 +14,17 @@ export function Menu({
   onAddStream,
   onRemoveStream,
   onResetStreams,
+  presets = [],
+  onSavePreset,
+  onLoadPreset,
+  onDeletePreset,
   isOpen,
   onClose,
 }) {
   const [newStreamInput, setNewStreamInput] = useState('');
   const [newStreamName, setNewStreamName] = useState('');
   const [addError, setAddError] = useState('');
+  const [presetName, setPresetName] = useState('');
 
   function handleLayoutSelect(e) {
     const value = e.currentTarget.dataset['value'];
@@ -55,6 +60,19 @@ export function Menu({
     if (typeof window !== 'undefined' && window.confirm('Reset streams to the original list?')) {
       onResetStreams?.();
     }
+  }
+
+  function handleSavePresetSubmit(e) {
+    e.preventDefault();
+    if (presetName.trim() && onSavePreset) {
+      onSavePreset(presetName.trim());
+      setPresetName('');
+    }
+  }
+
+  function handleLoad(preset) {
+    onLoadPreset?.(preset);
+    onClose();
   }
 
   return (
@@ -127,6 +145,46 @@ export function Menu({
             </form>
           )}
         </section>
+
+        {onSavePreset && (
+          <section className="menu-section">
+            <p className="menu-label">PRESETS</p>
+            <form className="preset-form" onSubmit={handleSavePresetSubmit}>
+              <input
+                type="text"
+                className="preset-input"
+                placeholder="Preset name"
+                value={presetName}
+                onChange={(e) => setPresetName(e.target.value)}
+              />
+              <button type="submit" className="preset-btn" disabled={!presetName.trim()}>
+                Save
+              </button>
+            </form>
+            {presets.length > 0 && (
+              <ul className="preset-list">
+                {presets.map((preset) => (
+                  <li key={preset.id} className="preset-item">
+                    <button
+                      className="preset-load"
+                      onClick={() => handleLoad(preset)}
+                      title={`Load ${preset.name}`}
+                    >
+                      {preset.name}
+                    </button>
+                    <button
+                      className="preset-delete"
+                      onClick={() => onDeletePreset?.(preset.id)}
+                      title="Delete preset"
+                    >
+                      ×
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        )}
       </div>
 
       {isOpen && <div className="menu-backdrop" onClick={onClose} />}
