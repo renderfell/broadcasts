@@ -513,44 +513,6 @@
   background: rgba(255, 107, 107, 0.1);
 }
 
-/* Assign mode styles */
-.assign-banner {
-  background: rgba(220, 50, 50, 0.15);
-  border: 1px solid rgba(220, 50, 50, 0.4);
-  color: #ff6b6b;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 11px;
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.stream-item.assign-mode {
-  cursor: pointer;
-  border-color: rgba(220, 50, 50, 0.5);
-}
-
-.stream-cell-empty.assign-target {
-  border-color: rgba(220, 50, 50, 0.6);
-  background: rgba(220, 50, 50, 0.1);
-}
-
-.cancel-assign {
-  background: none;
-  border: 1px solid currentColor;
-  color: inherit;
-  font-size: 10px;
-  padding: 1px 6px;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.cancel-assign:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
 /* ─── Empty Placeholder Cell ──────────────────────────── */
 .stream-cell-empty {
   background: #0a0a0a;
