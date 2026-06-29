@@ -2,7 +2,7 @@ import { useStreamDrag } from '@/hooks/useStreamDrag';
 
 import { DragHandle } from '@/components/ui/DragHandle';
 
-export function StreamList({ streams, onStreamsChange }) {
+export function StreamList({ streams, onStreamsChange, onRemoveStream }) {
   const { overIndex, handleDragStart, handleDragOver, handleDrop, handleDragEnd } = useStreamDrag(
     streams,
     onStreamsChange
@@ -25,6 +25,20 @@ export function StreamList({ streams, onStreamsChange }) {
           </span>
           <span className="stream-item-index">{i + 1}</span>
           <span className="stream-item-name">{stream.channel || stream.title || stream.id}</span>
+
+          {onRemoveStream && (
+            <button
+              className="stream-item-remove"
+              onClick={(e) => {
+                e.stopPropagation();
+                onRemoveStream(i);
+              }}
+              title="Remove stream"
+              aria-label={`Remove ${stream.channel || stream.id}`}
+            >
+              ×
+            </button>
+          )}
         </li>
       ))}
     </ul>
