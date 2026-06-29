@@ -10,15 +10,7 @@ export function StreamCell({ stream, index }) {
         <div className="stream-empty-content">
           <div className="stream-empty-icon">＋</div>
           <div className="stream-empty-main">Empty</div>
-          <a
-            href="https://github.com/renderfell/broadcasts"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="stream-empty-link"
-            onClick={(e) => e.stopPropagation()}
-          >
-            Contribute on GitHub
-          </a>
+          <div className="stream-empty-hint">Open menu to add streams</div>
         </div>
       </div>
     );

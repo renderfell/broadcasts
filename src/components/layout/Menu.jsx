@@ -18,6 +18,7 @@ export function Menu({
   onClose,
 }) {
   const [newStreamInput, setNewStreamInput] = useState('');
+  const [newStreamName, setNewStreamName] = useState('');
   const [addError, setAddError] = useState('');
 
   function handleLayoutSelect(e) {
@@ -44,8 +45,10 @@ export function Menu({
       return;
     }
 
-    onAddStream?.({ id, channel: 'Custom' });
+    const channel = newStreamName.trim() || 'Custom';
+    onAddStream?.({ id, channel });
     setNewStreamInput('');
+    setNewStreamName('');
   }
 
   function handleReset() {
@@ -93,19 +96,33 @@ export function Menu({
 
           {onAddStream && (
             <form className="add-stream-form" onSubmit={handleAddStream}>
+              <div className="add-stream-row">
+                <input
+                  type="text"
+                  className="add-stream-input"
+                  placeholder="YouTube ID or URL (e.g. dQw4w9wgxcQ)"
+                  value={newStreamInput}
+                  onChange={(e) => {
+                    setNewStreamInput(e.target.value);
+                    setAddError('');
+                  }}
+                />
+                <button type="submit" className="add-stream-btn">
+                  Add
+                </button>
+              </div>
+
               <input
                 type="text"
-                className="add-stream-input"
-                placeholder="YouTube ID or URL (e.g. dQw4w9wgxcQ)"
-                value={newStreamInput}
+                className="add-stream-name-input"
+                placeholder="Name (optional)"
+                value={newStreamName}
                 onChange={(e) => {
-                  setNewStreamInput(e.target.value);
+                  setNewStreamName(e.target.value);
                   setAddError('');
                 }}
               />
-              <button type="submit" className="add-stream-btn">
-                Add
-              </button>
+
               {addError && <div className="add-stream-error">{addError}</div>}
             </form>
           )}
