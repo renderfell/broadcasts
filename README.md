@@ -33,7 +33,7 @@ Releases are fully automated with **semantic-release**:
 2. **Squash merge** is the only allowed merge method (enforced at repository level). The squash commit message = PR title (keeps history clean).
 3. On push to `main`:
    - GitHub Actions runs semantic-release.
-   - If commits since last release warrant a new version → bumps `package.json`, updates `CHANGELOG.md`, creates a Git tag + GitHub Release.
+   - If commits since last release warrant a new version → bumps `package.json`, creates a Git tag + GitHub Release.
    - **Only if a new release is published**, the workflow then builds and deploys to GitHub Pages (via `gh-pages`).
 
 Workflow file: `.github/workflows/release.yml`
