@@ -48,6 +48,7 @@ export default function App() {
   const [layout, setLayout] = useState(loadInitialLayout);
   const [streams, setStreams] = useState(loadInitialStreams);
   const [presets, setPresets] = useState(loadInitialPresets);
+  const [assignTarget, setAssignTarget] = useState(null);
 
   // Persist layout
   useEffect(() => {
@@ -112,9 +113,38 @@ export default function App() {
     setPresets((prev) => prev.filter((p) => p.id !== id));
   }, []);
 
+  const handleAssignToSlot = useCallback((slotIndex) => {
+    setAssignTarget(slotIndex);
+  }, []);
+
+  const handleAssignStream = useCallback(
+    (fromIndex) => {
+      if (assignTarget === null || fromIndex === assignTarget) {
+        setAssignTarget(null);
+        return;
+      }
+      const newStreams = [...streams];
+      const [item] = newStreams.splice(fromIndex, 1);
+      newStreams.splice(assignTarget, 0, item);
+      setStreams(newStreams);
+      setAssignTarget(null);
+    },
+    [assignTarget, streams]
+  );
+
+  const handleCancelAssign = useCallback(() => {
+    setAssignTarget(null);
+  }, []);
+
   return (
     <div className="app">
-      <StreamGrid streams={streams} layout={layout} />
+      <StreamGrid
+        streams={streams}
+        layout={layout}
+        assignTarget={assignTarget}
+        onAssignToSlot={handleAssignToSlot}
+        onCancelAssign={handleCancelAssign}
+      />
       <Sidebar
         layout={layout}
         onLayoutChange={setLayout}
@@ -127,6 +157,9 @@ export default function App() {
         onSavePreset={handleSavePreset}
         onLoadPreset={handleLoadPreset}
         onDeletePreset={handleDeletePreset}
+        assignTarget={assignTarget}
+        onAssignStream={handleAssignStream}
+        onCancelAssign={handleCancelAssign}
       />
     </div>
   );

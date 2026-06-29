@@ -19,6 +19,9 @@ export function Sidebar({
   onSavePreset,
   onLoadPreset,
   onDeletePreset,
+  assignTarget,
+  onAssignStream,
+  onCancelAssign,
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isFullscreen, toggleFullscreen } = useFullscreen();
@@ -65,6 +68,9 @@ export function Sidebar({
         onSavePreset={onSavePreset}
         onLoadPreset={onLoadPreset}
         onDeletePreset={onDeletePreset}
+        assignTarget={assignTarget}
+        onAssignStream={onAssignStream}
+        onCancelAssign={onCancelAssign}
         isOpen={isMenuOpen}
         onClose={handleMenuClose}
       />
