@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/renderfell/broadcasts/compare/v1.0.0...v1.1.0) (2026-06-29)
+
+
+### Features
+
+* add custom YouTube streams, remove, reload and state persistence ([#5](https://github.com/renderfell/broadcasts/issues/5)) ([a174ce9](https://github.com/renderfell/broadcasts/commit/a174ce98462898feb74f3058002733caa66d2b5b))
+
 # 1.0.0 (2026-06-29)
 
 
