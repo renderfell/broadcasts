@@ -64,10 +64,11 @@ jobs:
         run: |
           echo "New release published: v${{ steps.semantic.outputs.new_release_version }}"
           npm run build
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           npx gh-pages \
             -d dist \
             --nojekyll \
-            -u "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>" \
             -m "chore(release): deploy v${{ steps.semantic.outputs.new_release_version }} to GitHub Pages"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
