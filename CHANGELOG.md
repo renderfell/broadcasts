@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/renderfell/broadcasts/compare/v1.1.0...v1.2.0) (2026-06-29)
+
+
+### Features
+
+* add named presets for layouts and streams ([#6](https://github.com/renderfell/broadcasts/issues/6)) ([2821b50](https://github.com/renderfell/broadcasts/commit/2821b50e2dec4de3e60d8dce99eb3c2025c82547))
+
 # [1.1.0](https://github.com/renderfell/broadcasts/compare/v1.0.0...v1.1.0) (2026-06-29)
 
 
