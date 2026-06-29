@@ -22,17 +22,29 @@ export function Sidebar({
   assignTarget,
   onAssignStream,
   onCancelAssign,
+  isMenuOpen: controlledIsMenuOpen,
+  onMenuToggle,
+  onMenuClose,
 }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [internalIsMenuOpen, setInternalIsMenuOpen] = useState(false);
+  const isMenuOpen = controlledIsMenuOpen !== undefined ? controlledIsMenuOpen : internalIsMenuOpen;
   const { isFullscreen, toggleFullscreen } = useFullscreen();
 
   const handleMenuToggle = useCallback(() => {
-    setIsMenuOpen((open) => !open);
-  }, []);
+    if (onMenuToggle) {
+      onMenuToggle();
+    } else {
+      setInternalIsMenuOpen((open) => !open);
+    }
+  }, [onMenuToggle]);
 
   const handleMenuClose = useCallback(() => {
-    setIsMenuOpen(false);
-  }, []);
+    if (onMenuClose) {
+      onMenuClose();
+    } else {
+      setInternalIsMenuOpen(false);
+    }
+  }, [onMenuClose]);
 
   return (
     <>
