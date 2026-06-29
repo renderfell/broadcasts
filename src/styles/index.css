@@ -98,6 +98,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  transition: opacity 0.15s ease;
 }
 
 .side-btn {
@@ -132,6 +133,12 @@
   color: #fff;
 }
 
+.side-buttons.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
 /* ─── Menu Panel ──────────────────────────────────────── */
 .menu-panel {
   position: fixed;
@@ -143,7 +150,7 @@
   background: rgba(12, 12, 12, 0.96);
   backdrop-filter: blur(16px);
   border-right: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 24px 20px 24px 54px;
+  padding: 24px 20px;
   display: flex;
   flex-direction: column;
   gap: 28px;
