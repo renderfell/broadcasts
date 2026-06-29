@@ -1,10 +1,10 @@
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 
 import { LAYOUTS } from '@/constants/layouts';
 
 import { StreamCell } from '@/components/streams/StreamCell';
 
-export function StreamGrid({ streams, layout }) {
+export const StreamGrid = memo(function StreamGrid({ streams, layout }) {
   const { cols, rows, count } = LAYOUTS[layout] ?? LAYOUTS['3x3'];
 
   const visible = useMemo(
@@ -21,4 +21,4 @@ export function StreamGrid({ streams, layout }) {
       ))}
     </div>
   );
-}
+});
