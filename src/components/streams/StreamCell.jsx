@@ -1,12 +1,6 @@
 import { memo, useCallback, useState } from 'react';
 
-export const StreamCell = memo(function StreamCell({
-  stream,
-  index,
-  assignTarget,
-  onAssignToSlot,
-  onCancelAssign,
-}) {
+export const StreamCell = memo(function StreamCell({ stream, index }) {
   const [reloadKey, setReloadKey] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -21,30 +15,12 @@ export const StreamCell = memo(function StreamCell({
   }, []);
 
   if (!stream) {
-    const isTarget = assignTarget === index;
     return (
-      <div
-        className={`stream-cell stream-cell-empty ${isTarget ? 'assign-target' : ''}`}
-        onClick={() => onAssignToSlot && onAssignToSlot(index)}
-        style={{ cursor: onAssignToSlot ? 'pointer' : 'default' }}
-      >
+      <div className="stream-cell stream-cell-empty">
         <div className="stream-empty-content">
           <div className="stream-empty-icon">＋</div>
-          <div className="stream-empty-main">{isTarget ? 'Select stream' : 'Empty'}</div>
-          <div className="stream-empty-hint">
-            {isTarget ? 'Click a stream in the menu' : 'Click to assign'}
-          </div>
-          {isTarget && onCancelAssign && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onCancelAssign();
-              }}
-              className="cancel-assign"
-            >
-              Cancel
-            </button>
-          )}
+          <div className="stream-empty-main">Empty</div>
+          <div className="stream-empty-hint">Open menu to add streams</div>
         </div>
       </div>
     );

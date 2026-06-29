@@ -18,9 +18,6 @@ export function Menu({
   onSavePreset,
   onLoadPreset,
   onDeletePreset,
-  assignTarget,
-  onAssignStream,
-  onCancelAssign,
   isOpen,
   onClose,
 }) {
@@ -135,22 +132,10 @@ export function Menu({
             )}
           </div>
 
-          {assignTarget !== null && (
-            <div className="assign-banner">
-              Select a stream to place in slot {assignTarget + 1}
-              {onCancelAssign && (
-                <button onClick={onCancelAssign} className="cancel-assign">
-                  Cancel
-                </button>
-              )}
-            </div>
-          )}
           <StreamList
             streams={streams}
             onStreamsChange={onStreamsChange}
             onRemoveStream={onRemoveStream}
-            assignTarget={assignTarget}
-            onAssignStream={onAssignStream}
           />
 
           {onAddStream && (

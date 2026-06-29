@@ -50,7 +50,6 @@ export default function App() {
   const [layout, setLayout] = useState(loadInitialLayout);
   const [streams, setStreams] = useState(loadInitialStreams);
   const [presets, setPresets] = useState(loadInitialPresets);
-  const [assignTarget, setAssignTarget] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { toggleFullscreen } = useFullscreen();
 
@@ -117,29 +116,6 @@ export default function App() {
     setPresets((prev) => prev.filter((p) => p.id !== id));
   }, []);
 
-  const handleAssignToSlot = useCallback((slotIndex) => {
-    setAssignTarget(slotIndex);
-  }, []);
-
-  const handleAssignStream = useCallback(
-    (fromIndex) => {
-      if (assignTarget === null || fromIndex === assignTarget) {
-        setAssignTarget(null);
-        return;
-      }
-      const newStreams = [...streams];
-      const [item] = newStreams.splice(fromIndex, 1);
-      newStreams.splice(assignTarget, 0, item);
-      setStreams(newStreams);
-      setAssignTarget(null);
-    },
-    [assignTarget, streams]
-  );
-
-  const handleCancelAssign = useCallback(() => {
-    setAssignTarget(null);
-  }, []);
-
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((open) => !open);
   }, []);
@@ -193,13 +169,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <StreamGrid
-        streams={streams}
-        layout={layout}
-        assignTarget={assignTarget}
-        onAssignToSlot={handleAssignToSlot}
-        onCancelAssign={handleCancelAssign}
-      />
+      <StreamGrid streams={streams} layout={layout} />
       <Sidebar
         layout={layout}
         onLayoutChange={setLayout}
@@ -212,9 +182,6 @@ export default function App() {
         onSavePreset={handleSavePreset}
         onLoadPreset={handleLoadPreset}
         onDeletePreset={handleDeletePreset}
-        assignTarget={assignTarget}
-        onAssignStream={handleAssignStream}
-        onCancelAssign={handleCancelAssign}
         isMenuOpen={isMenuOpen}
         onMenuToggle={toggleMenu}
         onMenuClose={closeMenu}

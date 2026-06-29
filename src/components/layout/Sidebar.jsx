@@ -19,9 +19,6 @@ export function Sidebar({
   onSavePreset,
   onLoadPreset,
   onDeletePreset,
-  assignTarget,
-  onAssignStream,
-  onCancelAssign,
   isMenuOpen: controlledIsMenuOpen,
   onMenuToggle,
   onMenuClose,
@@ -80,9 +77,6 @@ export function Sidebar({
         onSavePreset={onSavePreset}
         onLoadPreset={onLoadPreset}
         onDeletePreset={onDeletePreset}
-        assignTarget={assignTarget}
-        onAssignStream={onAssignStream}
-        onCancelAssign={onCancelAssign}
         isOpen={isMenuOpen}
         onClose={handleMenuClose}
       />
