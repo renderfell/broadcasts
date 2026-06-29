@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/renderfell/broadcasts/compare/v1.4.0...v1.4.1) (2026-06-29)
+
+
+### Bug Fixes
+
+* make assign from empty cell append the selected stream to end of list ([b396328](https://github.com/renderfell/broadcasts/commit/b396328da1d51aa126bacb2a3992ac7a30e8c29d))
+
 # [1.4.0](https://github.com/renderfell/broadcasts/compare/v1.3.0...v1.4.0) (2026-06-29)
 
 ### Features
