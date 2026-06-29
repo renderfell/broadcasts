@@ -15,6 +15,10 @@ export function Sidebar({
   onAddStream,
   onRemoveStream,
   onResetStreams,
+  presets,
+  onSavePreset,
+  onLoadPreset,
+  onDeletePreset,
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isFullscreen, toggleFullscreen } = useFullscreen();
@@ -57,6 +61,10 @@ export function Sidebar({
         onAddStream={onAddStream}
         onRemoveStream={onRemoveStream}
         onResetStreams={onResetStreams}
+        presets={presets}
+        onSavePreset={onSavePreset}
+        onLoadPreset={onLoadPreset}
+        onDeletePreset={onDeletePreset}
         isOpen={isMenuOpen}
         onClose={handleMenuClose}
       />
