@@ -121,20 +121,20 @@ export default function App() {
     setAssignTarget(slotIndex);
   }, []);
 
-  const handleAssignStream = useCallback(
-    (fromIndex) => {
-      if (assignTarget === null || fromIndex === assignTarget) {
-        setAssignTarget(null);
-        return;
+  const handleAssignStream = useCallback((fromIndex) => {
+    setAssignTarget(null);
+    setStreams((currentStreams) => {
+      if (fromIndex < 0 || fromIndex >= currentStreams.length) {
+        return currentStreams;
       }
-      const newStreams = [...streams];
+      const newStreams = [...currentStreams];
       const [item] = newStreams.splice(fromIndex, 1);
-      newStreams.splice(assignTarget, 0, item);
-      setStreams(newStreams);
-      setAssignTarget(null);
-    },
-    [assignTarget, streams]
-  );
+      // Always append for assign from empty click. This moves the chosen stream to the end of the list,
+      // which fills the next available grid position.
+      newStreams.push(item);
+      return newStreams;
+    });
+  }, []);
 
   const handleCancelAssign = useCallback(() => {
     setAssignTarget(null);
