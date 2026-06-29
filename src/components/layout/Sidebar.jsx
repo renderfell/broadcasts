@@ -25,8 +25,8 @@ export function Sidebar({ layout, onLayoutChange, streams, onStreamsChange }) {
         <button
           className={`side-btn ${isMenuOpen ? 'active' : ''}`}
           onClick={handleMenuToggle}
-          title="Menü"
-          aria-label="Menüyü aç/kapat"
+          title="Menu"
+          aria-label="Toggle menu"
         >
           <MenuIcon open={isMenuOpen} />
         </button>
@@ -34,8 +34,8 @@ export function Sidebar({ layout, onLayoutChange, streams, onStreamsChange }) {
         <button
           className={`side-btn ${isFullscreen ? 'active' : ''}`}
           onClick={toggleFullscreen}
-          title={isFullscreen ? 'Tam ekrandan çık' : 'Tam ekran'}
-          aria-label={isFullscreen ? 'Tam ekrandan çık' : 'Tam ekran'}
+          title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
+          aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
         >
           {isFullscreen ? <CollapseIcon /> : <ExpandIcon />}
         </button>

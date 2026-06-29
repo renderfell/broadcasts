@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import initialStreams from '@/data/streams.json';
+import initialStreams from '@/data/turkish.json';
 
 import { Sidebar } from '@/components/layout/Sidebar';
 import { StreamGrid } from '@/components/streams/StreamGrid';
