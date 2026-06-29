@@ -7,7 +7,15 @@ import { CollapseIcon } from '@/components/ui/CollapseIcon';
 import { ExpandIcon } from '@/components/ui/ExpandIcon';
 import { MenuIcon } from '@/components/ui/MenuIcon';
 
-export function Sidebar({ layout, onLayoutChange, streams, onStreamsChange }) {
+export function Sidebar({
+  layout,
+  onLayoutChange,
+  streams,
+  onStreamsChange,
+  onAddStream,
+  onRemoveStream,
+  onResetStreams,
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isFullscreen, toggleFullscreen } = useFullscreen();
 
@@ -46,6 +54,9 @@ export function Sidebar({ layout, onLayoutChange, streams, onStreamsChange }) {
         onLayoutChange={onLayoutChange}
         streams={streams}
         onStreamsChange={onStreamsChange}
+        onAddStream={onAddStream}
+        onRemoveStream={onRemoveStream}
+        onResetStreams={onResetStreams}
         isOpen={isMenuOpen}
         onClose={handleMenuClose}
       />
