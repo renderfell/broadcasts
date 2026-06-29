@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/renderfell/broadcasts/compare/v1.2.1...v1.3.0) (2026-06-29)
+
+
+### Features
+
+* add click to assign streams to empty grid cells ([#9](https://github.com/renderfell/broadcasts/issues/9)) ([be07527](https://github.com/renderfell/broadcasts/commit/be075270059a3db32ae8a49462e2eb07fcfb7467))
+
 ## [1.2.1](https://github.com/renderfell/broadcasts/compare/v1.2.0...v1.2.1) (2026-06-29)
 
 
