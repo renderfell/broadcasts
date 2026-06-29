@@ -14,11 +14,9 @@ export function Menu({ layout, onLayoutChange, streams, onStreamsChange, isOpen,
   return (
     <>
       <div className={`menu-panel ${isOpen ? 'open' : ''}`}>
-        <h2 className="menu-title">Menü</h2>
-
         {LAYOUT_OPTIONS.length > 1 && (
           <section className="menu-section">
-            <p className="menu-label">Izgara</p>
+            <p className="menu-label">GRIDS</p>
             <div className="layout-options">
               {LAYOUT_OPTIONS.map((opt) => (
                 <button
@@ -35,7 +33,7 @@ export function Menu({ layout, onLayoutChange, streams, onStreamsChange, isOpen,
         )}
 
         <section className="menu-section">
-          <p className="menu-label">Yayınlar</p>
+          <p className="menu-label">Streams</p>
           <StreamList streams={streams} onStreamsChange={onStreamsChange} />
         </section>
       </div>
