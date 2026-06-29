@@ -1,8 +1,18 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export function StreamCell({ stream, index }) {
   const [reloadKey, setReloadKey] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const handleLoad = useCallback(() => {
+    setIsLoaded(true);
+  }, []);
+
+  const handleReload = useCallback((e) => {
+    e.stopPropagation();
+    setIsLoaded(false);
+    setReloadKey((k) => k + 1);
+  }, []);
 
   if (!stream) {
     return (
@@ -17,16 +27,6 @@ export function StreamCell({ stream, index }) {
   }
 
   const src = `https://www.youtube.com/embed/${stream.id}?autoplay=1&mute=1&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&t=${reloadKey}`;
-
-  function handleLoad() {
-    setIsLoaded(true);
-  }
-
-  function handleReload(e) {
-    e.stopPropagation();
-    setIsLoaded(false);
-    setReloadKey((k) => k + 1);
-  }
 
   return (
     <div className="stream-cell">

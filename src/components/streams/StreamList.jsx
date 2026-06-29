@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import { useStreamDrag } from '@/hooks/useStreamDrag';
 
 import { DragHandle } from '@/components/ui/DragHandle';
@@ -6,6 +8,14 @@ export function StreamList({ streams, onStreamsChange, onRemoveStream }) {
   const { overIndex, handleDragStart, handleDragOver, handleDrop, handleDragEnd } = useStreamDrag(
     streams,
     onStreamsChange
+  );
+
+  const handleRemove = useCallback(
+    (e, i) => {
+      e.stopPropagation();
+      onRemoveStream(i);
+    },
+    [onRemoveStream]
   );
 
   return (
@@ -29,10 +39,7 @@ export function StreamList({ streams, onStreamsChange, onRemoveStream }) {
           {onRemoveStream && (
             <button
               className="stream-item-remove"
-              onClick={(e) => {
-                e.stopPropagation();
-                onRemoveStream(i);
-              }}
+              onClick={(e) => handleRemove(e, i)}
               title="Remove stream"
               aria-label={`Remove ${stream.channel || stream.id}`}
             >
