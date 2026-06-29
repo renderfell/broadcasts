@@ -1,10 +1,10 @@
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 
 import { useStreamDrag } from '@/hooks/useStreamDrag';
 
 import { DragHandle } from '@/components/ui/DragHandle';
 
-export function StreamList({ streams, onStreamsChange, onRemoveStream }) {
+export const StreamList = memo(function StreamList({ streams, onStreamsChange, onRemoveStream }) {
   const { overIndex, handleDragStart, handleDragOver, handleDrop, handleDragEnd } = useStreamDrag(
     streams,
     onStreamsChange
@@ -50,4 +50,4 @@ export function StreamList({ streams, onStreamsChange, onRemoveStream }) {
       ))}
     </ul>
   );
-}
+});

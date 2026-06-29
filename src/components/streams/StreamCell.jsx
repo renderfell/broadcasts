@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 
-export function StreamCell({ stream, index }) {
+export const StreamCell = memo(function StreamCell({ stream, index }) {
   const [reloadKey, setReloadKey] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -56,4 +56,4 @@ export function StreamCell({ stream, index }) {
       </div>
     </div>
   );
-}
+});
