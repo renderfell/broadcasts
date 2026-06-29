@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import initialStreams from '@/data/turkish.json';
 
@@ -76,38 +76,41 @@ export default function App() {
     }
   }, [presets]);
 
-  function handleAddStream(stream) {
+  const handleAddStream = useCallback((stream) => {
     if (!stream?.id) return;
     setStreams((prev) => [...prev, stream]);
-  }
+  }, []);
 
-  function handleRemoveStream(index) {
+  const handleRemoveStream = useCallback((index) => {
     setStreams((prev) => prev.filter((_, i) => i !== index));
-  }
+  }, []);
 
-  function handleResetStreams() {
+  const handleResetStreams = useCallback(() => {
     setStreams(initialStreams);
-  }
+  }, []);
 
-  function handleSavePreset(name) {
-    if (!name || !name.trim()) return;
-    const newPreset = {
-      id: Date.now().toString(36) + Math.random().toString(36).substr(2),
-      name: name.trim(),
-      layout,
-      streams: [...streams],
-    };
-    setPresets((prev) => [...prev, newPreset]);
-  }
+  const handleSavePreset = useCallback(
+    (name) => {
+      if (!name || !name.trim()) return;
+      const newPreset = {
+        id: Date.now().toString(36) + Math.random().toString(36).substr(2),
+        name: name.trim(),
+        layout,
+        streams: [...streams],
+      };
+      setPresets((prev) => [...prev, newPreset]);
+    },
+    [layout, streams]
+  );
 
-  function handleLoadPreset(preset) {
+  const handleLoadPreset = useCallback((preset) => {
     setLayout(preset.layout);
     setStreams(preset.streams);
-  }
+  }, []);
 
-  function handleDeletePreset(id) {
+  const handleDeletePreset = useCallback((id) => {
     setPresets((prev) => prev.filter((p) => p.id !== id));
-  }
+  }, []);
 
   return (
     <div className="app">

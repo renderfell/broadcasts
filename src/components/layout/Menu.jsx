@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { LAYOUT_OPTIONS } from '@/constants/layouts';
 
@@ -26,54 +26,80 @@ export function Menu({
   const [addError, setAddError] = useState('');
   const [presetName, setPresetName] = useState('');
 
-  function handleLayoutSelect(e) {
-    const value = e.currentTarget.dataset['value'];
-    if (value) {
-      onLayoutChange(value);
-      onClose();
-    }
-  }
+  const handleLayoutSelect = useCallback(
+    (e) => {
+      const value = e.currentTarget.dataset['value'];
+      if (value) {
+        onLayoutChange(value);
+        onClose();
+      }
+    },
+    [onLayoutChange, onClose]
+  );
 
-  function handleAddStream(e) {
-    e.preventDefault();
+  const handleStreamInputChange = useCallback((e) => {
+    setNewStreamInput(e.target.value);
     setAddError('');
+  }, []);
 
-    const id = extractYouTubeId(newStreamInput);
-    if (!id) {
-      setAddError('Please enter a valid YouTube video ID or URL');
-      return;
-    }
+  const handleStreamNameChange = useCallback((e) => {
+    setNewStreamName(e.target.value);
+    setAddError('');
+  }, []);
 
-    // Prevent obvious duplicates by ID
-    if (streams.some((s) => s.id === id)) {
-      setAddError('This stream is already in the list');
-      return;
-    }
+  const handleAddStream = useCallback(
+    (e) => {
+      e.preventDefault();
+      setAddError('');
 
-    const channel = newStreamName.trim() || 'Custom';
-    onAddStream?.({ id, channel });
-    setNewStreamInput('');
-    setNewStreamName('');
-  }
+      const id = extractYouTubeId(newStreamInput);
+      if (!id) {
+        setAddError('Please enter a valid YouTube video ID or URL');
+        return;
+      }
 
-  function handleReset() {
+      // Prevent obvious duplicates by ID
+      if (streams.some((s) => s.id === id)) {
+        setAddError('This stream is already in the list');
+        return;
+      }
+
+      const channel = newStreamName.trim() || 'Custom';
+      onAddStream?.({ id, channel });
+      setNewStreamInput('');
+      setNewStreamName('');
+    },
+    [newStreamInput, newStreamName, streams, onAddStream]
+  );
+
+  const handleReset = useCallback(() => {
     if (typeof window !== 'undefined' && window.confirm('Reset streams to the original list?')) {
       onResetStreams?.();
     }
-  }
+  }, [onResetStreams]);
 
-  function handleSavePresetSubmit(e) {
-    e.preventDefault();
-    if (presetName.trim() && onSavePreset) {
-      onSavePreset(presetName.trim());
-      setPresetName('');
-    }
-  }
+  const handleSavePresetSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (presetName.trim() && onSavePreset) {
+        onSavePreset(presetName.trim());
+        setPresetName('');
+      }
+    },
+    [presetName, onSavePreset]
+  );
 
-  function handleLoad(preset) {
-    onLoadPreset?.(preset);
-    onClose();
-  }
+  const handlePresetNameChange = useCallback((e) => {
+    setPresetName(e.target.value);
+  }, []);
+
+  const handleLoad = useCallback(
+    (preset) => {
+      onLoadPreset?.(preset);
+      onClose();
+    },
+    [onLoadPreset, onClose]
+  );
 
   return (
     <>
@@ -120,10 +146,7 @@ export function Menu({
                   className="add-stream-input"
                   placeholder="YouTube ID or URL (e.g. dQw4w9wgxcQ)"
                   value={newStreamInput}
-                  onChange={(e) => {
-                    setNewStreamInput(e.target.value);
-                    setAddError('');
-                  }}
+                  onChange={handleStreamInputChange}
                 />
                 <button type="submit" className="add-stream-btn">
                   Add
@@ -135,10 +158,7 @@ export function Menu({
                 className="add-stream-name-input"
                 placeholder="Name (optional)"
                 value={newStreamName}
-                onChange={(e) => {
-                  setNewStreamName(e.target.value);
-                  setAddError('');
-                }}
+                onChange={handleStreamNameChange}
               />
 
               {addError && <div className="add-stream-error">{addError}</div>}
@@ -155,7 +175,7 @@ export function Menu({
                 className="preset-input"
                 placeholder="Preset name"
                 value={presetName}
-                onChange={(e) => setPresetName(e.target.value)}
+                onChange={handlePresetNameChange}
               />
               <button type="submit" className="preset-btn" disabled={!presetName.trim()}>
                 Save

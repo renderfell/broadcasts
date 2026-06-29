@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { useFullscreen } from '@/hooks/useFullscreen';
 
@@ -23,13 +23,13 @@ export function Sidebar({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isFullscreen, toggleFullscreen } = useFullscreen();
 
-  function handleMenuToggle() {
+  const handleMenuToggle = useCallback(() => {
     setIsMenuOpen((open) => !open);
-  }
+  }, []);
 
-  function handleMenuClose() {
+  const handleMenuClose = useCallback(() => {
     setIsMenuOpen(false);
-  }
+  }, []);
 
   return (
     <>
