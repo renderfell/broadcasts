@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { LAYOUTS } from '@/constants/layouts';
 import initialStreams from '@/data/turkish.json';
+import { useFullscreen } from '@/hooks/useFullscreen';
 
 import { Sidebar } from '@/components/layout/Sidebar';
 import { StreamGrid } from '@/components/streams/StreamGrid';
@@ -49,6 +51,8 @@ export default function App() {
   const [streams, setStreams] = useState(loadInitialStreams);
   const [presets, setPresets] = useState(loadInitialPresets);
   const [assignTarget, setAssignTarget] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { toggleFullscreen } = useFullscreen();
 
   // Persist layout
   useEffect(() => {
@@ -136,6 +140,57 @@ export default function App() {
     setAssignTarget(null);
   }, []);
 
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen((open) => !open);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
+
+  const cycleLayout = useCallback(
+    (direction) => {
+      const layoutKeys = Object.keys(LAYOUTS);
+      const currentIndex = layoutKeys.indexOf(layout);
+      const nextIndex = (currentIndex + direction + layoutKeys.length) % layoutKeys.length;
+      setLayout(layoutKeys[nextIndex]);
+    },
+    [layout]
+  );
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      switch (e.key.toLowerCase()) {
+        case 'm':
+          toggleMenu();
+          break;
+        case 'f':
+          toggleFullscreen();
+          break;
+        case 'r':
+          console.log('Reload all triggered (demo)');
+          break;
+        case 'arrowleft':
+          cycleLayout(-1);
+          break;
+        case 'arrowright':
+          cycleLayout(1);
+          break;
+        default:
+          if (e.key >= '1' && e.key <= '9') {
+            const slot = parseInt(e.key, 10) - 1;
+            console.log(`Slot ${slot} selected (future use)`);
+          }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [toggleMenu, toggleFullscreen, cycleLayout]);
+
   return (
     <div className="app">
       <StreamGrid
@@ -160,6 +215,9 @@ export default function App() {
         assignTarget={assignTarget}
         onAssignStream={handleAssignStream}
         onCancelAssign={handleCancelAssign}
+        isMenuOpen={isMenuOpen}
+        onMenuToggle={toggleMenu}
+        onMenuClose={closeMenu}
       />
     </div>
   );
