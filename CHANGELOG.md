@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/renderfell/broadcasts/compare/v1.3.0...v1.4.0) (2026-06-29)
+
+
+### Features
+
+* add keyboard shortcuts for menu, fullscreen, layout cycling and reload ([#10](https://github.com/renderfell/broadcasts/issues/10)) ([830f499](https://github.com/renderfell/broadcasts/commit/830f499a645c07fd7bb04338e18155989e508f7f))
+
 # [1.3.0](https://github.com/renderfell/broadcasts/compare/v1.2.1...v1.3.0) (2026-06-29)
 
 
