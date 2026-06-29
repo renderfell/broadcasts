@@ -21,7 +21,7 @@ export function Sidebar({ layout, onLayoutChange, streams, onStreamsChange }) {
 
   return (
     <>
-      <div className="side-buttons">
+      <div className={`side-buttons ${isMenuOpen ? 'hidden' : ''}`}>
         <button
           className={`side-btn ${isMenuOpen ? 'active' : ''}`}
           onClick={handleMenuToggle}

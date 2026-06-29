@@ -1,0 +1,73 @@
+name: Release & Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  # For GitHub Pages (if switching to official pages deploy later)
+  pages: write
+  id-token: write
+
+jobs:
+  validate:
+    name: Validate (lint + build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+      - run: HUSKY=0 npm ci
+      - run: npm run lint
+      - run: npm run build
+
+  release:
+    name: Semantic Release + Conditional Deploy
+    runs-on: ubuntu-latest
+    # Only release on main (after squash merge). Validate must pass first.
+    needs: validate
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history required for semantic-release
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies (skip husky)
+        run: HUSKY=0 npm ci
+
+      - name: Run Semantic Release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          semantic_version: latest
+          # Plugins are already in devDependencies
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to GitHub Pages (only on actual release)
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: |
+          echo "New release published: v${{ steps.semantic.outputs.new_release_version }}"
+          npm run build
+          npx gh-pages \
+            -d dist \
+            --nojekyll \
+            -u "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>" \
+            -m "chore(release): deploy v${{ steps.semantic.outputs.new_release_version }} to GitHub Pages"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
